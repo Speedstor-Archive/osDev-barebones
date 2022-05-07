@@ -48,24 +48,16 @@ _start:
     */
     //TODO !!
 
-
+    /* Enter High-level Kernel */
+    call kernel_main
     
-    /*
-    If the system has nothing more to do, put the computer into an infinite loop. To do that: 
-        1) Disable interrupts with cli (clear interrupt enable in eflags)
-            - They are already disabled by the bootloader, so this is not needed. Mind that you might later enable interrupts and return forom kernel_main (which is sort of nonsensical to do)
-        2) Wait for th enext interrupt to arrive with hlt
-
-
-
-        */
-
+    /* end of kernel, stops instructions, if continued, jump to hlt infinitely*/
     cli
-l:  hlt
-    jmp lb
+1:  hlt
+    jmp 1b
 
 
 /*
-Set the size of the _start symbol
+Set the size of the _start symbol (how large the _start "function" is)
 */
 .size _start, . - _start        /* current location - _start */
